@@ -131,6 +131,10 @@ function WinGame(message) {
   valeur +=1 ;
   localStorage.setItem("nbr_win", valeur);
   questionZone.innerHTML = `<p>${message}</p>`;
+    btnZone.innerHTML = `
+    <button onclick="restartGame()" id="btn_option">Recommencer</button>
+    <button onclick="goToMenu()" id="btn_option">Menu Principal</button>
+  `;
 }
 
 function endGame(message) {

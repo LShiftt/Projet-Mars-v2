@@ -5,10 +5,13 @@ const missions = [
   ];
 let challenge = document.getElementById('defi_container');
 
-let obj_accesible = [];
+let obj_accesible = ["boite","perseverance"];
 
 
 window.addEventListener("DOMContentLoaded", function () {
+    if (!localStorage.getItem("obj_accessible")) {
+        localStorage.setItem("obj_accessible", JSON.stringify(obj_accesible));
+    }
     printMissions();
 })
 
