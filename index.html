@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/1ce9ab38cd.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/public/css/index.css">
+    <title>Projet Mars</title>
+</head>
+<body>
+    <div>
+        <div class="stars" id="stars"></div>
+    </div>
+
+    <audio controls loop autoplay style="width: 0; height: 0;" id="background-audio">
+        <source src="/src/sound/game_music.mp3" type="audio/mpeg">
+    </audio>
+    
+
+    <div id="container_modif" class="container_modif">
+        <div>
+            <div id="btn_modif" class="btn_modif">
+                <i class="fa-solid fa-rocket"></i>
+                <p>Fusée</p>
+            </div>
+            <div id="btn_modif" class="btn_modif">
+                <i class="fa-solid fa-book"></i>
+                <p>Défi</p>
+            </div>
+        </div>
+
+        <div class="modifs">
+            <h1>Modification de la fusée:</h1>
+            <label>
+                Couleur des ailerons:
+                <input name="color_wing" type="color" value="#0000FF" />
+            </label>
+            <label>
+                Couleur de la fusee:
+                <input name="color_rocket" type="color" value="#0000FF" />
+            </label>
+            <label>
+                Couleur de la fenêtre:
+                <input name="color_window" type="color" value="#0000FF" />
+            </label>
+            
+        </div>
+        <!-- <div class="modifs">
+            
+            
+        </div> -->
+    </div>
+    
+    <header>
+        <h1>Earth Beyond</h1>
+        <i class="fa-solid fa-volume-high" id="volume-on"></i>
+        <i class="fa-solid fa-volume-xmark" id="volume-off"></i>
+    </header>
+
+    <main>
+        <section>
+            <div id="scene-container"></div>
+        </section>
+        <section>
+            <div class="btn_container">
+                <a href="/html/terre.html" class="btn" id="quizz">Quizz</a>
+                <a href="" class="btn">Mini-jeux</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        async function createStars() {
+            const starContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                let star = document.createElement('div');
+                star.classList.add('star');
+                star.style.left = Math.random() * 1500 + 'px';
+                star.style.top = Math.random() * 1000 + 'px';
+                starContainer.appendChild(star);
+            }
+        }
+        createStars();
+    </script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if (!localStorage.getItem("nbr_win")) {
+            localStorage.setItem("nbr_win", 0);
+        }
+
+        document.querySelector(".btn_modif").addEventListener("click", async function ()  {
+            let container = document.querySelector("#container_modif");
+            container.style.left = container.style.left === "70vw" ? "93.5%" : "70vw";
+        });
+
+        const audio = document.getElementById("background-audio");
+        const toggleButton = document.getElementById("toggle-audio");
+        const volumeOnIcon = document.getElementById("volume-on");
+        const volumeOffIcon = document.getElementById("volume-off");
+
+        volumeOnIcon.style.display = "none";
+
+        volumeOnIcon.addEventListener("click", async function () {
+            audio.pause();
+            volumeOnIcon.style.display = "none";
+            volumeOffIcon.style.display = "inline";
+        });
+        
+        volumeOffIcon.addEventListener("click", async function () {
+            audio.play();
+            volumeOnIcon.style.display = "inline";
+            volumeOffIcon.style.display = "none";
+        });
+        
+        const btnQuizz = document.getElementById("quizz");
+        let scWing = document.querySelector("input[name=color_wing]"),
+            scBody = document.querySelector("input[name=color_rocket]"),
+            scWindow = document.querySelector("input[name=color_window]");
+
+        btnQuizz.addEventListener("click", async function () {
+            localStorage.setItem("ailerons", scWing.value);
+            localStorage.setItem("corps", scBody.value);
+            localStorage.setItem("fenetre", scWindow.value);
+        });
+
+    });
+    </script>
+    <script type="module" src="src/js/index/main.js"></script>
+</body>
+</html>

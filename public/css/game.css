@@ -1,0 +1,299 @@
+*{
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+  height: 100%;
+  /* pas de marge et pas de scrollbar */
+  margin: 0;
+  overflow: hidden;
+  text-align: center;
+  font-size: 24px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(67, 66, 66);
+  background-color: black;
+}
+
+
+.rain {
+  position: absolute;
+  width: 10rem;
+  height: 1rem;
+  background: #ffffff;
+  border-radius: 20%;
+  opacity: 0.2;
+  z-index: -1;
+}
+
+.drop {
+  width: 7rem;
+  height: 1rem;
+  background: #ffffff;
+  position: absolute;
+  border-radius: 20%;
+  opacity: 0.2;
+}
+
+.rain1 {
+  left: 5rem;
+  top: 2rem;
+  animation: raining 2s linear infinite both;
+}
+
+.rain2 {
+  left: 15rem;
+  top: 10rem;
+  animation: raining 3s linear infinite both;
+}
+
+.drop2 {
+  top: 12rem;
+  animation: raining 4s linear infinite both -2s;
+}
+
+.rain3 {
+  left: 5rem;
+  top: 35rem;
+  animation: raining 3s linear infinite both;
+}
+
+.rain4 {
+  right: 23rem;
+  top: 6rem;
+  animation: raining 4s linear infinite both;
+}
+
+.rain5 {
+  left: 25rem;
+  top: 47rem;
+  animation: raining 3s linear infinite both -3s;
+}
+
+.drop5 {
+  top: -6rem;
+  animation: raining 2s linear infinite both;
+}
+
+.rain6 {
+  right: 10rem;
+  top: 34rem;
+  animation: raining 3s linear infinite both;
+}
+
+.rain7 {
+  left: 34rem;
+  top: 10rem;
+  animation: raining 2s linear infinite both -5s;
+}
+
+.rain8 {
+  right: 25rem;
+  top: 40rem;
+  animation: raining 3s linear infinite both;
+}
+
+.drop8 {
+  top: -7rem;
+  animation: raining 4s linear infinite both -6s;
+}
+
+.rain9 {
+  right: 5rem;
+  top: 15.5rem;
+  animation: raining 3s linear infinite both;
+}
+
+.rain10 {
+  left: 24rem;
+  top: -4rem;
+  animation: raining 2s linear infinite both -3s;
+}
+
+.drop11 {
+  right: 17rem;
+  top: 20rem;
+  animation: raining 3s linear infinite both;
+}
+
+.drop12 {
+  right: 15rem;
+  top: 50rem;
+  animation: raining 4s linear infinite both -1s;
+}
+
+@keyframes raining {
+  from {
+    transform: translateX(869px);
+
+  }
+  to {
+    transform: translateX(-1200px);
+  }
+}
+
+#scene-container {
+    /* canvas en pleine page */
+    position: absolute;
+    z-index: -1;
+    /*
+      Couleur de fond de la scène.
+      Il faut reprendre le même réglage que celui que va imposer three.
+      ainsi, on évite l'effet "flash" lorsque le canvas est injecté dan le DOM
+    */
+
+  }
+
+
+  img{
+    width: 45px;
+    height: auto;
+
+  }
+
+/* Ajustements de la page */
+main{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+}
+
+main>div:first-child{
+  padding-top: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;  
+  gap: 30px;
+}
+
+/* disposition des boutons en carré */
+#btn_container{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  padding: 15px;
+}
+
+#btn_container>button{
+  width: 150px;
+  height: 150px;
+  background-color: blue;
+  color: white;
+  border: 3px solid white;
+  border-radius: 15px;
+  font-size: large;
+}
+
+
+/* Boutton pour mettre en pause */
+#btn_settings{
+  position: fixed;
+  font-size: larger;
+  padding: 15px;
+  /* z-index: 2; */
+  background-color: grey;
+  color: white;
+  left: 90vw;
+  top: 5vh;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+/* Paramétrage */
+#setting{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(128, 128, 128, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-100vh);
+  transition: 0.5s ease-in-out;
+  
+}
+
+#setting>div{
+  background-color: grey;
+  width: 35%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 20px;
+
+}
+
+
+/* Réglage du bouton du son */
+.musique_setting{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.musique_setting p{
+  font-weight:  bold;
+}
+
+.musique_setting i{
+  font-size: larger;
+}
+
+
+/* Placement des boutons par rapport au jeu */
+.game_setting{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items:stretch;
+
+}
+
+.game_setting>div{
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: first baseline;
+  align-items: center;
+  gap: 30px;
+  text-align: center;
+
+}
+
+.game_setting>div>div{
+  width: 75px;
+  height: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid black;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.game_setting>div>div>img{
+  width: 40px;
+  height: auto;
+
+}
+.game_setting>div>div>img:last-child{
+  width: 30px;
+}
+
+.game_setting>div>p{
+
+  text-align: center;
+  font-size:medium;
+}

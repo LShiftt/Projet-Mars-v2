@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+ <head>
+    <title>Starter Three.js</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0,maximum-scale=1.0" />
+    <link href="/public/css/terre.css" rel="stylesheet" />
+ </head>
+ <body>
+    <div id="scene-container">
+    <!-- le canvas sera injecté ICI -->
+      <div id="narrateur">
+         <p></p>
+      </div>
+    </div>
+
+ <script type="module" src="../../src/js/terre/terre.js"></script>
+   <script>
+   document.addEventListener("DOMContentLoaded", () => {
+    const phrases = [
+        "La Terre… notre maison. Mais nous l’avons abîmée. Elle ne pourra plus nous abriter éternellement.",
+        "Les ressources s’épuisent, le climat se dérègle… Si nous voulons survivre, nous devons trouver un nouveau refuge.",
+        "Mars… une terre hostile, froide, désertique… Mais c'est peut-être notre seul espoir.",
+        "Aucun humain n’a jamais voyagé aussi loin… C’est le plus grand défi de notre histoire."
+    ];
+
+    let indexPhrase = 0;
+    let indexLettre = 0;
+    let isTyping = false; // Pour éviter d'afficher plusieurs phrases à la fois
+    const narrateur = document.querySelector("#narrateur p");
+
+    // Créer un nouvel objet Audio pour jouer le son
+    const sonClic = new Audio('../../src/sound/clic.mp3');
+
+    /** Fonction pour afficher une phrase lettre par lettre */
+    function afficherPhrase() {
+        isTyping = true;
+        narrateur.textContent = ""; // Efface le texte précédent
+        indexLettre = 0;
+
+        const interval = setInterval(() => {
+            if (indexLettre < phrases[indexPhrase].length) {
+                narrateur.textContent += phrases[indexPhrase][indexLettre];
+                indexLettre++;
+            } else {
+                clearInterval(interval);
+                isTyping = false; // L'utilisateur peut appuyer sur Entrée pour continuer
+            }
+        }, 50); // Vitesse d'affichage des lettres
+    }
+
+    /** Gestion de l'appui sur Entrée pour passer à la phrase suivante */
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" && !isTyping) {
+            sonClic.play(); // Joue le son lorsque la touche Enter est pressée
+            if (indexPhrase < phrases.length - 1) {
+                indexPhrase++; // Passe à la phrase suivante
+                afficherPhrase();
+            } else {
+                // Redirection vers une nouvelle page (modifier l'URL selon ton besoin)
+                window.location.href = "/public/html/game.html"; 
+            }
+        }
+    });
+
+    // Démarre avec la première phrase une fois le DOM chargé
+    afficherPhrase();
+});
+</script>
+   
+ 
+ </body>

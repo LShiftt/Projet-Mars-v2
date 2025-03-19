@@ -1,0 +1,41 @@
+body {
+    /* pas de marge et pas de scrollbar */
+    margin: 0;
+    overflow: hidden;
+    text-align: center;
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(67, 66, 66);
+   }
+   h1 {
+    /* titre du projet */
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+   }
+   #scene-container {
+    /* canvas en pleine page */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*
+    Couleur de fond de la scène.
+    Il faut reprendre le même réglage que celui que va imposer three.
+    ainsi, on évite l'effet "flash" lorsque le canvas est injecté dan le DOM
+    */
+    background-color: skyblue;
+   }
+   #narrateur {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 800px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 1.2em;
+}

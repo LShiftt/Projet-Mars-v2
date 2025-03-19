@@ -1,0 +1,135 @@
+{
+    "questions": [
+      {
+        "question": "Quelle planète possède le plus grand volcan du système solaire ?",
+        "choices": ["Mars", "Venus", "Jupiter", "Mercure"],
+        "answer": "Mars",
+        "anecdote": "Le plus grand volcan connu du système solaire est Olympus Mons, un volcan bouclier sur Mars, qui mesure environ 22 km de hauteur et 600 km de diamètre !"
+      },
+      {
+        "question": "Quelle est la température moyenne de la surface de Vénus ?",
+        "choices": ["100°C", "250°C", "460°C", "800°C"],
+        "answer": "460°C",
+        "anecdote": "Vénus est plus chaude que Mercure malgré sa distance plus grande du Soleil, en raison de son effet de serre extrême causé par une atmosphère riche en dioxyde de carbone."
+      },
+      {
+        "question": "Quel est le plus grand satellite naturel du système solaire ?",
+        "choices": ["La Lune", "Europe", "Ganymède", "Titan"],
+        "answer": "Ganymède",
+        "anecdote": "Ganymède, une lune de Jupiter, est plus grande que la planète Mercure et possède son propre champ magnétique !"
+      },
+      {
+        "question": "Quelle sonde spatiale a pris la première photo de Pluton de près ?",
+        "choices": ["Voyager 1", "New Horizons", "Pioneer 10", "Cassini"],
+        "answer": "New Horizons",
+        "anecdote": "La sonde New Horizons a survolé Pluton en juillet 2015, révélant une planète naine bien plus complexe que prévu, avec des montagnes de glace et une atmosphère fine."
+      },
+      {
+        "question": "Quel est le diamètre approximatif de la Terre ?",
+        "choices": ["6 000 km", "12 000 km", "24 000 km", "40 000 km"],
+        "answer": "12 000 km",
+        "anecdote": "Le diamètre moyen de la Terre est d'environ 12 742 km, soit environ un tiers du diamètre de Jupiter."
+      },
+      {
+        "question": "Combien de lunes possède Saturne ? (environ)",
+        "choices": ["30", "50", "80", "120"],
+        "answer": "80",
+        "anecdote": "Saturne possède au moins 83 lunes confirmées, dont la plus grande, Titan, est plus massive que la planète Mercure et possède une atmosphère dense."
+      },
+      {
+        "question": "Quelle est la durée d'une année sur Jupiter ?",
+        "choices": ["5 ans terrestres", "10 ans terrestres", "12 ans terrestres", "20 ans terrestres"],
+        "answer": "12 ans terrestres",
+        "anecdote": "Jupiter met environ 11,86 ans terrestres pour effectuer une révolution complète autour du Soleil en raison de sa distance considérable."
+      },
+      {
+        "question": "Quel est le premier pays à avoir envoyé un homme sur la Lune ?",
+        "choices": ["URSS", "États-Unis", "Chine", "France"],
+        "answer": "États-Unis",
+        "anecdote": "Le programme Apollo a permis aux États-Unis de poser les premiers hommes sur la Lune en 1969, avec Neil Armstrong et Buzz Aldrin."
+      },
+      {
+        "question": "Quel est le plus grand télescope spatial actuellement en service ?",
+        "choices": ["Hubble", "Spitzer", "James Webb", "Kepler"],
+        "answer": "James Webb",
+        "anecdote": "Le télescope spatial James Webb, lancé en 2021, permet d'observer l'Univers avec une précision inégalée grâce à son immense miroir de 6,5 mètres de diamètre."
+      },
+      {
+        "question": "Quel est le nom du rover qui a trouvé des preuves d'eau sur Mars en 2012 ?",
+        "choices": ["Spirit", "Opportunity", "Curiosity", "Perseverance"],
+        "answer": "Curiosity",
+        "anecdote": "Le rover Curiosity, arrivé sur Mars en 2012, a trouvé des preuves d'anciennes rivières et d'un environnement potentiellement habitable dans le passé martien."
+      },
+      {
+        "question": "Quel est le plus grand astéroïde de la ceinture principale ?",
+        "choices": ["Cérès", "Vesta", "Pallas", "Eros"],
+        "answer": "Cérès",
+        "anecdote": "Cérès est le plus grand objet de la ceinture d'astéroïdes entre Mars et Jupiter, avec un diamètre d'environ 950 km. Il est classé comme planète naine."
+      },{
+        "question": "Quelle planète est la plus proche du Soleil ?",
+        "choices": ["Venus", "Mars", "Mercure", "Jupiter"],
+        "answer": "Mercure",
+        "anecdote": "Bien que Mercure soit la plus proche du Soleil, ce n'est pas la planète la plus chaude du système solaire. Vénus détient ce titre en raison de son atmosphère dense qui retient la chaleur."
+        },
+        {
+        "question": "Quelle est la plus grande planète du système solaire ?",
+        "choices": ["Terre", "Saturne", "Jupiter", "Neptune"],
+        "answer": "Jupiter",
+        "anecdote": "Jupiter est si grande qu'elle pourrait contenir plus de 1 300 Terres en son sein. Elle possède aussi une énorme tempête appelée la Grande Tache Rouge, qui dure depuis au moins 350 ans !"
+        },
+        {
+        "question": "Quel astronaute a été le premier à marcher sur la Lune ?",
+        "choices": ["Buzz Aldrin", "Neil Armstrong", "Yuri Gagarine", "Alan Shepard"],
+        "answer": "Neil Armstrong",
+        "anecdote": "Lorsqu'il a posé le pied sur la Lune en 1969, Neil Armstrong a prononcé la célèbre phrase : 'C'est un petit pas pour l'homme, un bond de géant pour l'humanité'."
+        },
+        {
+        "question": "Combien de planètes composent le système solaire ?",
+        "choices": ["7", "8", "9", "10"],
+        "answer": "8",
+        "anecdote": "Pluton était autrefois considérée comme la neuvième planète, mais en 2006, l'Union astronomique internationale l'a reclassée en tant que planète naine."
+        },
+        {
+        "question": "Quelle planète est connue pour ses anneaux ?",
+        "choices": ["Uranus", "Saturne", "Neptune", "Jupiter"],
+        "answer": "Saturne",
+        "anecdote": "Les anneaux de Saturne sont principalement constitués de glace et de poussière. Ils sont si vastes qu'ils s'étendent sur des centaines de milliers de kilomètres, mais sont incroyablement fins !"
+        },
+        {
+        "question": "Qui a été le premier homme dans l’espace ?",
+        "choices": ["Neil Armstrong", "Buzz Aldrin", "Yuri Gagarine", "John Glenn"],
+        "answer": "Yuri Gagarine",
+        "anecdote": "Le 12 avril 1961, Yuri Gagarine est devenu le premier humain à voyager dans l'espace à bord de Vostok 1, prononçant 'Je vois la Terre, elle est magnifique !'"
+        },
+        {
+        "question": "Quelle planète est surnommée la Planète rouge ?",
+        "choices": ["Mars", "Venus", "Jupiter", "Mercure"],
+        "answer": "Mars",
+        "anecdote": "Mars doit sa couleur rougeâtre à la présence d'oxyde de fer, autrement dit de la rouille, à sa surface."
+        },
+        {
+        "question": "Combien de temps la lumière du Soleil met-elle pour atteindre la Terre ?",
+        "choices": ["8 secondes", "8 minutes", "8 heures", "8 jours"],
+        "answer": "8 minutes",
+        "anecdote": "La lumière du Soleil voyage à une vitesse d’environ 300 000 km/s, mettant ainsi un peu plus de 8 minutes pour parcourir les 150 millions de kilomètres qui nous séparent."
+        },
+        {
+        "question": "Quel est le nom du premier satellite artificiel lancé dans l’espace ?",
+        "choices": ["Apollo 11", "Spoutnik 1", "Voyager 1", "Hubble"],
+        "answer": "Spoutnik 1",
+        "anecdote": "Lancé par l’Union soviétique en 1957, Spoutnik 1 a marqué le début de l’ère spatiale et a provoqué la course à l’espace entre les États-Unis et l’URSS."
+        },
+        {
+        "question": "Quelle est la station spatiale actuellement en orbite autour de la Terre ?",
+        "choices": ["ISS", "Mir", "Hubble", "Skylab"],
+        "answer": "ISS",
+        "anecdote": "La Station spatiale internationale (ISS) est un projet de collaboration entre plusieurs pays et tourne autour de la Terre à une vitesse d’environ 28 000 km/h."
+        },
+        {
+        "question": "Quel gaz est le plus abondant dans l’atmosphère du Soleil ?",
+        "choices": ["Oxygène", "Carbone", "Hydrogène", "Hélium"],
+        "answer": "Hydrogène",
+        "anecdote": "Le Soleil est composé à environ 75 % d'hydrogène et 24 % d'hélium, ce qui alimente la fusion nucléaire qui génère son immense énergie."
+        }
+    ]
+  }

@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Pixelify Sans", sans-serif;
+
+}
+
+body {
+    color: white;
+    background-color: black;
+    position: relative;
+    overflow: hidden;
+
+}
+
+/* Fond de la page principale  */
+body>div {
+    position: fixed;
+    z-index: -1;
+    display: flex;
+    justify-content: start;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.stars {
+    position: relative;
+    width: 500px;
+    height: 500px;
+}
+
+.star {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: white;
+    box-shadow: 0 0 5px white;
+    animation: twinkle 2s infinite alternate ease-in-out;
+}
+
+@keyframes twinkle {
+    0% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 15vh;
+    padding: 0 30px;
+
+}
+
+header>h1 {
+
+    font-size: xxx-large;
+}
+
+header>i {
+    font-size: xx-large;
+}
+
+.btn_container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 50px;
+    text-decoration: none;
+    background-color: white;
+    color: black;
+    font-size: x-large;
+    font-family: "Pixelify Sans", sans-serif;
+    border-radius: 20px;
+}
+
+section {
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Partie pour la modification de la fusée */
+.container_modif {
+    position: absolute;
+    left: 93.5%;
+    top: 20vh;
+    transition: ease-in-out 0.5s;
+    z-index: 0;
+}
+
+.btn_modif {
+    background-color: orange;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100px;
+    height: 5.5vh;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.btn_modif>i {
+    font-size: x-large;
+}
+
+.modifs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+    height: 500px;
+    background-color: orange;
+    gap: 30px;
+    border-radius: 20px;
+}
+
+.modifs>h1 {
+    text-align: center;
+    width: 50%;
+}
+
+.modifs>label {
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: "Pixelify Sans", sans-serif;
+
+}
+
+.modifs>label>input {
+    width: 50%;
+}
+
+/* Rocket Zone  */
+
+#scene-container {
+    position: fixed;
+    z-index: -1;
+
+
+
+}
