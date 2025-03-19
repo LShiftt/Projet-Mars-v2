@@ -77,17 +77,37 @@ inventoryItems.forEach((item) => {
   }
 });
 
+// Création de la scène et configuration du background
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x000000);
+scene.background = new THREE.Color("#000000");
 
-const bgTexture = textureLoader.load("../../../public/img/textures/bg.jpg");
-const bgGeometry = new THREE.SphereGeometry(500, 32, 32);
-bgGeometry.scale(-1, 1, 1);
-const bgMaterial = new THREE.MeshBasicMaterial({ map: bgTexture });
-const backgroundMesh = new THREE.Mesh(bgGeometry, bgMaterial);
-scene.add(backgroundMesh);
+// Ajout des étoiles en arrière-plan (copié de terre.js)
+function ajouterEtoiles() {
+  const etoilesGeometry = new THREE.BufferGeometry();
+  const positions = [];
+  for (let i = 0; i < 500; i++) {
+    positions.push((Math.random() - 0.5) * 200);
+    positions.push((Math.random() - 0.5) * 200);
+    positions.push((Math.random() - 0.5) * 200);
+  }
+  etoilesGeometry.setAttribute(
+    "position",
+    new THREE.Float32BufferAttribute(positions, 3)
+  );
+  const etoilesMaterial = new THREE.PointsMaterial({
+    color: 0xffffff,
+    size: 0.5,
+    transparent: true,
+  });
+  const etoiles = new THREE.Points(etoilesGeometry, etoilesMaterial);
+  scene.add(etoiles);
+}
+ajouterEtoiles();
 
-const planetTexture = textureLoader.load("../../../public/img/textures/2k_mars.jpg");
+// Création des objets principaux
+const planetTexture = textureLoader.load(
+  "../../../public/img/textures/2k_mars.jpg"
+);
 
 const cameraMain = new THREE.PerspectiveCamera(
   75,
@@ -154,7 +174,7 @@ gltfLoader.load(
     // Position initiale de l'astronaute (sera modifiée après l'atterrissage)
     group.position.set(0.2, 2.1, 0);
     player = group;
-    // L'astronaute reste invisible pendant la séquence de descente de la fusée
+    // L'astronaute reste invisible pendant la descente de la fusée
     player.visible = false;
     scene.add(player);
     mixer = new THREE.AnimationMixer(group);
@@ -234,9 +254,18 @@ function onMouseClick(event) {
     const forward = newTarget.clone().sub(startPosition);
     forward.projectOnPlane(radial).normalize();
     const lookAtMatrix = new THREE.Matrix4();
-    lookAtMatrix.lookAt(startPosition, startPosition.clone().add(forward), radial);
+    lookAtMatrix.lookAt(
+      startPosition,
+      startPosition.clone().add(forward),
+      radial
+    );
     endQuaternion.setFromRotationMatrix(lookAtMatrix);
-    endQuaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI));
+    endQuaternion.multiply(
+      new THREE.Quaternion().setFromAxisAngle(
+        new THREE.Vector3(0, 1, 0),
+        Math.PI
+      )
+    );
     targetPosition = newTarget;
     progress = 0;
     moving = true;
@@ -256,9 +285,12 @@ function updateCamera(newCamera) {
   activeCamera = newCamera;
   composer = createPixelEffect(scene, activeCamera, renderer);
 }
-document.getElementById("btnCameraMain").addEventListener("click", () => updateCamera(cameraMain));
-document.getElementById("btnCameraX").addEventListener("click", () => updateCamera(cameraX));
-// Retirée la référence à "btnCameraY" et à la caméra Y
+document
+  .getElementById("btnCameraMain")
+  .addEventListener("click", () => updateCamera(cameraMain));
+document
+  .getElementById("btnCameraX")
+  .addEventListener("click", () => updateCamera(cameraX));
 
 const playerSettings = { speed: 0.01, color: "#ff0000" };
 
@@ -303,7 +335,11 @@ function animate() {
       if (player) {
         const offset = new THREE.Vector3(1, 0, 0);
         // Forcer la position sur la sphère de rayon 2.0
-        player.position.copy(rocket.position).add(offset).normalize().multiplyScalar(2.0);
+        player.position
+          .copy(rocket.position)
+          .add(offset)
+          .normalize()
+          .multiplyScalar(2.0);
         player.visible = true;
       }
     }
@@ -316,7 +352,9 @@ function animate() {
       const startNorm = startPosition.clone().normalize();
       const targetNorm = targetPosition.clone().normalize();
       const angle = startNorm.angleTo(targetNorm);
-      const axis = new THREE.Vector3().crossVectors(startNorm, targetNorm).normalize();
+      const axis = new THREE.Vector3()
+        .crossVectors(startNorm, targetNorm)
+        .normalize();
       const q = new THREE.Quaternion().setFromAxisAngle(axis, angle * progress);
       const newPos = startNorm.clone().applyQuaternion(q).multiplyScalar(2.0);
       player.position.copy(newPos);
@@ -333,7 +371,6 @@ function animate() {
     }
   }
 
-  backgroundMesh.position.copy(activeCamera.position);
   composer.render();
 }
 animate();
