@@ -1,7 +1,7 @@
 import { createPixelEffect } from "./postprocess-pixel.js";
 import * as THREE from "three";
 import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js";
-import { createRocket, rocket } from "../../../public/model/fusee/rocket.js";
+import { createRocket, rocket } from "/public/model/fusee/rocket.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 const textureLoader = new THREE.TextureLoader();
 
@@ -90,7 +90,7 @@ const backgroundMesh = new THREE.Mesh(bgGeometry, bgMaterial);
 scene.add(backgroundMesh);
 
 const planetTexture = textureLoader.load(
-  "../../../public/img/textures/2k_mars.jpg"
+  "/public/img/textures/2k_mars.jpg"
 );
 
 const cameraMain = new THREE.PerspectiveCamera(
@@ -151,7 +151,7 @@ function setAnimation(name) {
 
 const gltfLoader = new GLTFLoader();
 gltfLoader.load(
-  "../../public/model/astronauta/scene.gltf",
+  "/public/model/astronauta/scene.gltf",
   (gltf) => {
     const model = gltf.scene;
     model.scale.set(0.2, 0.2, 0.2);
