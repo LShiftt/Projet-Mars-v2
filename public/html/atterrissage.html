@@ -1,39 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Atterissage</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
-    <link type="text/css" rel="stylesheet" href="/css/atterissage.css" />
-  </head>
 
-  <body>
-    <div class="button-container">
-      <button id="btnCameraMain">Caméra principale</button>
-      <button id="btnCameraX">Caméra horizontale</button>
+<head>
+  <title>Atterissage</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+  <script src="https://kit.fontawesome.com/1ce9ab38cd.js" crossorigin="anonymous"></script>
+  <link type="text/css" rel="stylesheet" href="/css/atterissage.css" />
+</head>
 
-    </div>
+<body>
+  <div class="button-container">
+    <button id="btnCameraMain">Caméra principale</button>
+    <button id="btnCameraX">Caméra horizontale</button>
 
-    <div class="inventory">
-      <button id="inventoryCubeJaune"></button>
-      <button id="inventoryCubeVert"></button>
-      <button id="inventoryCubeBleu"></button>
-      <button id="inventoryCubeRose"></button>
-      <button id="inventoryCubeGris"></button>
-    </div>
+  </div>
 
-    <audio
-      id="bandeSon"
-      src="/sound/game_music.mp3"
-      loop
-      autoplay
-      style="display: none"
-    ></audio>
+  <div class="inventory">
+    <button id="inventoryCubeJaune"></button>
+    <button id="inventoryCubeVert"></button>
+    <button id="inventoryCubeBleu"></button>
+    <button id="inventoryCubeRose"></button>
+    <button id="inventoryCubeGris"></button>
+  </div>
 
-    <script type="importmap">
+  <audio id="bandeSon" src="/sound/game_music.mp3" loop muted style="display: none"></audio>
+
+  <!-- Contrôle de volume -->
+  <div id="volume-controls" style="position: absolute; top: 20px; right: 20px; z-index: 3;">
+    <i class="fa-solid fa-volume-high" id="volume-on"></i>
+    <i class="fa-solid fa-volume-xmark" id="volume-off"></i>
+  </div>
+
+  <script type="importmap">
       {
         "imports": {
           "three": "../build/three.module.js",
@@ -41,6 +40,28 @@
         }
       }
     </script>
-    <script type="module" src="/js/atterissage/index.js"></script>
-  </body>
+  <script>
+    const audio = document.getElementById("bandeSon");
+    const volumeOnIcon = document.getElementById("volume-on");
+    const volumeOffIcon = document.getElementById("volume-off");
+
+    // Afficher volume off par défaut, puisque le son est en autoplay muet
+    volumeOnIcon.style.display = "none";
+
+    volumeOnIcon.addEventListener("click", async function () {
+      audio.pause();
+      volumeOnIcon.style.display = "none";
+      volumeOffIcon.style.display = "inline";
+    });
+
+    volumeOffIcon.addEventListener("click", async function () {
+      audio.muted = false;  // Désactiver le mode muet
+      audio.play();
+      volumeOnIcon.style.display = "inline";
+      volumeOffIcon.style.display = "none";
+    });
+  </script>
+  <script type="module" src="/js/atterissage/index.js"></script>
+</body>
+
 </html>

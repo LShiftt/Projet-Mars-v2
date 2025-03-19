@@ -3,15 +3,12 @@
 * {
   box-sizing: border-box;
 }
-html {
+html, body {
   height: 100%;
   margin: 0;
   padding: 0;
 }
 body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
   overflow: hidden;
   text-align: center;
   font-size: 24px;
@@ -28,6 +25,8 @@ button {
   position: relative;
   z-index: 1;
 }
+
+/* Positionnement des conteneurs */
 .button-container {
   position: absolute;
   top: 20px;
@@ -55,17 +54,17 @@ button {
   z-index: 2;
 }
 
-/* Style identique pour les boutons dans .button-container et .inventory */
+/* Style pour les boutons des deux conteneurs */
 .button-container button,
 .inventory button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  height: 50px;
+  width: 200px !important;
+  height: 50px !important;
   text-decoration: none;
-  background-color: white;
-  color: black;
+  background-color: white !important;
+  color: black !important;
   font-size: x-large;
   font-family: "Pixelify Sans", sans-serif;
   border-radius: 20px;
@@ -76,13 +75,14 @@ button {
 
 .button-container button:hover,
 .inventory button:hover {
-  background-color: #ddd;
+  background-color: #ddd !important;
   transform: scale(1.05);
 }
+
 .button-container button:disabled,
 .inventory button:disabled {
-  background-color: #ccc;
-  color: #777;
+  background-color: #ccc !important;
+  color: #777 !important;
   cursor: not-allowed;
   opacity: 0.6;
   pointer-events: none;
