@@ -26,7 +26,7 @@ function printMissions() {
                     <p>${event.description}</p>
                 </div>
                 <p>${parseInt(storedValue)} / ${event.objectif}</p>
-                <p>Récompense: <p>
+                <p>Récompense: ${event.recompense}<p>
             </div>
         `;
         }
