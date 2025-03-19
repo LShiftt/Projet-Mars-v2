@@ -57,10 +57,20 @@ const inventoryItems = [
   },
 ];
 
-inventoryItems.forEach((item) => {
-  if (localStorage.getItem(item.localStorageKey) === "true")
-    item.obtained = true;
-});
+// Nouvelle gestion basée sur "obj_accessible"
+const accessibleStr = localStorage.getItem("obj_accessible");
+if (accessibleStr) {
+  try {
+    const accessibleArr = JSON.parse(accessibleStr); // Exemple : ["boite","perseverance"]
+    inventoryItems.forEach((item) => {
+      if (accessibleArr.includes(item.localStorageKey)) {
+        item.obtained = true;
+      }
+    });
+  } catch (error) {
+    console.error("Erreur lors du parsing de obj_accessible :", error);
+  }
+}
 inventoryItems.forEach((item) => {
   const btn = document.getElementById(item.id);
   if (btn) {
