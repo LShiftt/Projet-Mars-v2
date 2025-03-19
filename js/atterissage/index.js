@@ -1,10 +1,9 @@
 import { createPixelEffect } from "./postprocess-pixel.js";
 import * as THREE from "three";
-import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js";
-import { createRocket, rocket } from "/public/model/fusee/rocket.js";
+import { createRocket, rocket } from "../../public/model/fusee/rocket";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-const textureLoader = new THREE.TextureLoader();
 
+const textureLoader = new THREE.TextureLoader();
 const clock = new THREE.Clock();
 
 const inventoryItems = [
@@ -84,14 +83,11 @@ scene.background = new THREE.Color(0x000000);
 const bgTexture = textureLoader.load("../../../public/img/textures/bg.jpg");
 const bgGeometry = new THREE.SphereGeometry(500, 32, 32);
 bgGeometry.scale(-1, 1, 1);
-
 const bgMaterial = new THREE.MeshBasicMaterial({ map: bgTexture });
 const backgroundMesh = new THREE.Mesh(bgGeometry, bgMaterial);
 scene.add(backgroundMesh);
 
-const planetTexture = textureLoader.load(
-  "/public/img/textures/2k_mars.jpg"
-);
+const planetTexture = textureLoader.load("../../../public/img/textures/2k_mars.jpg");
 
 const cameraMain = new THREE.PerspectiveCamera(
   75,
@@ -107,13 +103,6 @@ const cameraX = new THREE.PerspectiveCamera(
   1000
 );
 cameraX.position.set(10, 0, 0);
-const cameraY = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-cameraY.position.set(0, 10, 0);
 let activeCamera = cameraMain;
 
 const renderer = new THREE.WebGLRenderer();
@@ -125,6 +114,7 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(10, 10, 10);
 scene.add(directionalLight);
 
+// Variables pour le joueur et les animations
 let player,
   mixer,
   idleAction,
@@ -149,9 +139,10 @@ function setAnimation(name) {
   currentAnimName = name;
 }
 
+// Chargement du modèle de l'astronaute
 const gltfLoader = new GLTFLoader();
 gltfLoader.load(
-  "/public/model/astronauta/scene.gltf",
+  "../../public/model/astronauta/scene.gltf",
   (gltf) => {
     const model = gltf.scene;
     model.scale.set(0.2, 0.2, 0.2);
@@ -160,8 +151,11 @@ gltfLoader.load(
     model.position.add(offset);
     const group = new THREE.Group();
     group.add(model);
+    // Position initiale de l'astronaute (sera modifiée après l'atterrissage)
     group.position.set(0.2, 2.1, 0);
     player = group;
+    // L'astronaute reste invisible pendant la séquence de descente de la fusée
+    player.visible = false;
     scene.add(player);
     mixer = new THREE.AnimationMixer(group);
     const idleClip = gltf.animations.find((clip) =>
@@ -202,7 +196,8 @@ gltfLoader.load(
 );
 
 createRocket(scene);
-rocket.position.set(0, 2.28, 0);
+// Donner un point d'origine plus haut pour la fusée afin de simuler la descente
+rocket.position.set(0, 10, 0);
 rocket.rotation.set(
   THREE.MathUtils.degToRad(35),
   THREE.MathUtils.degToRad(80),
@@ -225,7 +220,8 @@ let progress = 0,
   moving = false;
 
 function onMouseClick(event) {
-  if (moving || !player) return;
+  // L'astronaute peut se déplacer que s'il est visible (après l'atterrissage)
+  if (moving || !player || !player.visible) return;
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse, activeCamera);
@@ -238,18 +234,9 @@ function onMouseClick(event) {
     const forward = newTarget.clone().sub(startPosition);
     forward.projectOnPlane(radial).normalize();
     const lookAtMatrix = new THREE.Matrix4();
-    lookAtMatrix.lookAt(
-      startPosition,
-      startPosition.clone().add(forward),
-      radial
-    );
+    lookAtMatrix.lookAt(startPosition, startPosition.clone().add(forward), radial);
     endQuaternion.setFromRotationMatrix(lookAtMatrix);
-    endQuaternion.multiply(
-      new THREE.Quaternion().setFromAxisAngle(
-        new THREE.Vector3(0, 1, 0),
-        Math.PI
-      )
-    );
+    endQuaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI));
     targetPosition = newTarget;
     progress = 0;
     moving = true;
@@ -260,51 +247,96 @@ function onMouseClick(event) {
 window.addEventListener("click", onMouseClick);
 
 let angleMain = 0,
-  angleX = 0,
-  angleY = 0;
+  angleX = 0;
 const radius = 5;
-const speeds = { main: 0.001, x: 0.001, y: 0.01 };
-
-const gui = new GUI();
-gui.add(speeds, "main", 0.001, 0.05).name("Vitesse Satellite Principal");
-gui.add(speeds, "x", 0.001, 0.05).name("Vitesse Satellite X");
-gui.add(speeds, "y", 0.001, 0.05).name("Vitesse Satellite Y");
+const speeds = { main: 0.001, x: 0.001 };
 
 let composer = createPixelEffect(scene, activeCamera, renderer);
 function updateCamera(newCamera) {
   activeCamera = newCamera;
   composer = createPixelEffect(scene, activeCamera, renderer);
 }
-document
-  .getElementById("btnCameraMain")
-  .addEventListener("click", () => updateCamera(cameraMain));
-document
-  .getElementById("btnCameraX")
-  .addEventListener("click", () => updateCamera(cameraX));
-document
-  .getElementById("btnCameraY")
-  .addEventListener("click", () => updateCamera(cameraY));
-gui
-  .add({ switchCamera: "main" }, "switchCamera", ["main", "x", "y"])
-  .name("Caméra Active")
-  .onChange((value) => {
-    const newCam =
-      value === "main" ? cameraMain : value === "x" ? cameraX : cameraY;
-    updateCamera(newCam);
-  });
+document.getElementById("btnCameraMain").addEventListener("click", () => updateCamera(cameraMain));
+document.getElementById("btnCameraX").addEventListener("click", () => updateCamera(cameraX));
+// Retirée la référence à "btnCameraY" et à la caméra Y
 
 const playerSettings = { speed: 0.01, color: "#ff0000" };
-gui.add(playerSettings, "speed", 0.01, 0.1, 0.01).name("Vitesse Joueur");
-gui
-  .addColor(playerSettings, "color")
-  .name("Couleur Joueur")
-  .onChange((value) => {
-    if (player) {
-      player.traverse((child) => {
-        if (child.isMesh) child.material.color.set(value);
-      });
+
+//////////////////////////////////////////////////////////////
+// Séquence d'atterrissage de la fusée
+//////////////////////////////////////////////////////////////
+let landingSequenceInProgress = true;
+let landingStartTime = performance.now();
+const landingDuration = 3000; // Durée en ms
+let landingStartY = rocket.position.y;
+const landingEndY = 2.21; // Position finale de la fusée sur la planète
+
+function startLandingSequence() {
+  landingSequenceInProgress = true;
+  landingStartTime = performance.now();
+  landingStartY = rocket.position.y;
+}
+startLandingSequence();
+//////////////////////////////////////////////////////////////
+
+function animate() {
+  requestAnimationFrame(animate);
+  const delta = clock.getDelta();
+  if (mixer) mixer.update(delta);
+  angleMain += speeds.main;
+  cameraMain.position.x = radius * Math.cos(angleMain);
+  cameraMain.position.z = radius * Math.sin(angleMain);
+  cameraMain.lookAt(planet.position);
+  angleX += speeds.x;
+  cameraX.position.x = radius * Math.cos(angleX);
+  cameraX.position.z = radius * Math.sin(angleX);
+  cameraX.lookAt(planet.position);
+
+  // Séquence d'atterrissage de la fusée
+  if (landingSequenceInProgress) {
+    const elapsed = performance.now() - landingStartTime;
+    const t = Math.min(elapsed / landingDuration, 1);
+    rocket.position.y = landingStartY * (1 - t) + landingEndY * t;
+    if (t >= 1) {
+      landingSequenceInProgress = false;
+      // Placer l'astronaute sur le sol de la planète près de la fusée
+      if (player) {
+        const offset = new THREE.Vector3(1, 0, 0);
+        // Forcer la position sur la sphère de rayon 2.0
+        player.position.copy(rocket.position).add(offset).normalize().multiplyScalar(2.0);
+        player.visible = true;
+      }
     }
-  });
+  }
+
+  // Déplacement de l'astronaute sur la surface de la planète
+  if (targetPosition && player) {
+    progress += playerSettings.speed;
+    if (progress < 1) {
+      const startNorm = startPosition.clone().normalize();
+      const targetNorm = targetPosition.clone().normalize();
+      const angle = startNorm.angleTo(targetNorm);
+      const axis = new THREE.Vector3().crossVectors(startNorm, targetNorm).normalize();
+      const q = new THREE.Quaternion().setFromAxisAngle(axis, angle * progress);
+      const newPos = startNorm.clone().applyQuaternion(q).multiplyScalar(2.0);
+      player.position.copy(newPos);
+      player.quaternion.copy(startQuaternion);
+      player.quaternion.slerp(endQuaternion, progress);
+      player.up.copy(player.position.clone().normalize());
+    } else {
+      player.position.copy(targetPosition);
+      player.quaternion.copy(endQuaternion);
+      player.up.copy(player.position.clone().normalize());
+      targetPosition = null;
+      moving = false;
+      setAnimation("idle");
+    }
+  }
+
+  backgroundMesh.position.copy(activeCamera.position);
+  composer.render();
+}
+animate();
 
 function placeSelectedItem(item) {
   if (item.placed) {
@@ -312,7 +344,6 @@ function placeSelectedItem(item) {
     return;
   }
   setAnimation("coletandochao");
-
   if (item.modelPath) {
     const loader = new GLTFLoader();
     loader.load(
@@ -360,48 +391,3 @@ function placeSelectedItem(item) {
     }
   }
 }
-
-function animate() {
-  requestAnimationFrame(animate);
-  const delta = clock.getDelta();
-  if (mixer) mixer.update(delta);
-  angleMain += speeds.main;
-  cameraMain.position.x = radius * Math.cos(angleMain);
-  cameraMain.position.z = radius * Math.sin(angleMain);
-  cameraMain.lookAt(planet.position);
-  angleX += speeds.x;
-  cameraX.position.x = radius * Math.cos(angleX);
-  cameraX.position.z = radius * Math.sin(angleX);
-  cameraX.lookAt(planet.position);
-  angleY += speeds.y;
-  cameraY.position.y = radius * Math.cos(angleY);
-  cameraY.position.z = radius * Math.sin(angleY);
-  cameraY.lookAt(planet.position);
-  if (targetPosition && player) {
-    progress += playerSettings.speed;
-    if (progress < 1) {
-      const startNorm = startPosition.clone().normalize();
-      const targetNorm = targetPosition.clone().normalize();
-      const angle = startNorm.angleTo(targetNorm);
-      const axis = new THREE.Vector3()
-        .crossVectors(startNorm, targetNorm)
-        .normalize();
-      const q = new THREE.Quaternion().setFromAxisAngle(axis, angle * progress);
-      const newPos = startNorm.clone().applyQuaternion(q).multiplyScalar(2.0);
-      player.position.copy(newPos);
-      player.quaternion.copy(startQuaternion);
-      player.quaternion.slerp(endQuaternion, progress);
-      player.up.copy(player.position.clone().normalize());
-    } else {
-      player.position.copy(targetPosition);
-      player.quaternion.copy(endQuaternion);
-      player.up.copy(player.position.clone().normalize());
-      targetPosition = null;
-      moving = false;
-      setAnimation("idle");
-    }
-  }
-  backgroundMesh.position.copy(activeCamera.position);
-  composer.render();
-}
-animate();
