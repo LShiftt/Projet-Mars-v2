@@ -4,9 +4,9 @@ import * as THREE from "three";
 let rocket, rocket_fire;
 const rocketParts = {};
 
-let scWing = localStorage.getItem("scWing") || "red",
-  scBody = localStorage.getItem("scBody") || "blue",
-  scWindow = localStorage.getItem("scWindow") || "gray";
+let scWing = localStorage.getItem("ailerons") || "red",
+  scBody = localStorage.getItem("corps") || "blue",
+  scWindow = localStorage.getItem("fenetre") || "gray";
 
 // /**
 //  * Mettre à jour la couleur du cube.
