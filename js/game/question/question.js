@@ -52,7 +52,8 @@ function loadNewQuestion() {
 
     btn.addEventListener("click", () => {
       if (gameOver) return; // Empêcher d'interagir après la fin
-
+      const sonClic = new Audio('/sound/clic.mp3');
+      sonClic.play();
       let isCorrect = verifyAnswer(choice, currentQuestion.answer);
 
       // Désactiver tous les boutons après le premier clic
@@ -65,28 +66,41 @@ function loadNewQuestion() {
       //Sinon Montrer son avancement dans la partie
       if (!isCorrect) {
         let life = document.querySelectorAll(".life");
+        let sound_error = new Audio('/sound/erreur.mp3');
+        sound_error.play();
         if (life.length > 0) {
           life[life.length - 1].remove();
         }
 
-        // Vérifier si toutes les vies sont perdues
-        if (document.querySelectorAll(".life").length === 0) {
-          setTimeout(endGame("Vous avez perdu !"), 1000);
-          
-          return;
-        }
-
       }else{
+        let sound_correct = new Audio('/sound/correct.mp3');
+        sound_correct.play();
         augmenterProgression();
-
-        if (progress.value === 10) {
-          WinGame("Vous avez gagné !");
-          return;
-        }
       }
 
+      
+        // Vérifier si toutes les vies sont perdues
+          if (document.querySelectorAll(".life").length === 0) {
+            endGame("Vous avez perdu !");
+            let sound_lose = new Audio('/sound/game_over.mp3');
+            sound_lose.play();
+            return;
+          }
+
+
+        
+        if (progress.value === 10) {
+          WinGame("Vous avez gagné !");
+          let sound_win = new Audio('/sound/win.mp3');
+          sound_win.play();
+          return;
+        }
+
       // Attendre 1 seconde puis changer de question
-      setTimeout(loadNewQuestion, 1000);
+      setTimeout(loadNewQuestion, 5000);
+
+
+      
     });
   });
 }
@@ -122,8 +136,11 @@ function endGame(message) {
 
 function restartGame() {
   gameOver = false;
+  let sound_start = new Audio('/sound/start.mp3');
+  sound_start.play();
+  document.getElementById("setting").style.transform = "translateY(-100vh)";
   progress.value = 0;
-  printScore.innerHTML = progress.value+"/10";
+  printScore.innerHTML = progress.value +"/10";
 
   usedIndexes = [];
   lifeContainer.innerHTML = `           
