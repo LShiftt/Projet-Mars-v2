@@ -14,7 +14,7 @@
       </div>
     </div>
 
- <script type="module" src="../../src/js/terre/terre.js"></script>
+ <script type="module" src="/js/terre/terre.js"></script>
    <script>
    document.addEventListener("DOMContentLoaded", () => {
     const phrases = [
@@ -30,7 +30,7 @@
     const narrateur = document.querySelector("#narrateur p");
 
     // Créer un nouvel objet Audio pour jouer le son
-    const sonClic = new Audio('../../src/sound/clic.mp3');
+    const sonClic = new Audio('/sound/clic.mp3');
 
     /** Fonction pour afficher une phrase lettre par lettre */
     function afficherPhrase() {
@@ -58,7 +58,7 @@
                 afficherPhrase();
             } else {
                 // Redirection vers une nouvelle page (modifier l'URL selon ton besoin)
-                window.location.href = "/public/html/game.html"; 
+                window.location.href = "/html/game.html"; 
             }
         }
     });
