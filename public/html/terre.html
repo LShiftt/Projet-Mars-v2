@@ -26,16 +26,14 @@
 
     let indexPhrase = 0;
     let indexLettre = 0;
-    let isTyping = false; // Pour éviter d'afficher plusieurs phrases à la fois
+    let isTyping = false;
     const narrateur = document.querySelector("#narrateur p");
 
-    // Créer un nouvel objet Audio pour jouer le son
     const sonClic = new Audio('/sound/clic.mp3');
 
-    /** Fonction pour afficher une phrase lettre par lettre */
     function afficherPhrase() {
         isTyping = true;
-        narrateur.textContent = ""; // Efface le texte précédent
+        narrateur.textContent = "";
         indexLettre = 0;
 
         const interval = setInterval(() => {
@@ -44,29 +42,32 @@
                 indexLettre++;
             } else {
                 clearInterval(interval);
-                isTyping = false; // L'utilisateur peut appuyer sur Entrée pour continuer
+                isTyping = false;
             }
-        }, 50); // Vitesse d'affichage des lettres
+        }, 50);
     }
 
-    /** Gestion de l'appui sur Entrée pour passer à la phrase suivante */
     document.addEventListener("keydown", (event) => {
         if (event.key === "Enter" && !isTyping) {
-            sonClic.play(); // Joue le son lorsque la touche Enter est pressée
+            sonClic.play();
             if (indexPhrase < phrases.length - 1) {
-                indexPhrase++; // Passe à la phrase suivante
+                indexPhrase++;
                 afficherPhrase();
             } else {
-                // Redirection vers une nouvelle page (modifier l'URL selon ton besoin)
-                window.location.href = "/html/game.html"; 
+                // Ajout du fondu au noir avant la redirection
+                const overlay = document.getElementById("transition-overlay");
+                overlay.style.opacity = "1"; // Déclenche le fondu
+                setTimeout(() => {
+                    window.location.href = "/html/game.html"; 
+                }, 3000); // Redirection après 3 secondes
             }
         }
     });
 
-    // Démarre avec la première phrase une fois le DOM chargé
     afficherPhrase();
 });
+
 </script>
    
- 
+<div id="transition-overlay"></div>
  </body>
