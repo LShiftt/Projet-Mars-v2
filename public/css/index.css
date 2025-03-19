@@ -85,7 +85,7 @@ header>i {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 150px;
+    width: 200px;
     height: 50px;
     text-decoration: none;
     background-color: white;
@@ -170,6 +170,9 @@ section {
     gap: 8px;
     font-weight: bold;
     color: white;
+}
+.zone label>input{
+    width: 50%;
 }
 
 

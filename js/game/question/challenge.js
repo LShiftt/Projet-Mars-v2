@@ -1,9 +1,11 @@
 const missions = [
-    { id: 1, name: "Débutant", description:"Faites 10 bonnes réponses au total", type: "good_answer", objectif: 10, recompense: "50 points" },
-    { id: 2, name: "Intermédiaire", description:"Faites 20 bonnes réponses au total", type: "good_answer", objectif: 20, recompense: "200 points" },
-    { id: 3, name: "Champion", description:"Gagner 5 parties", type: "nbr_win", objectif: 5, recompense: "500 points" },
+    { id: 1, name: "Débutant", description:"Faites 10 bonnes réponses au total", type: "good_answer", objectif: 10, recompense: "microscope" },
+    { id: 2, name: "Intermédiaire", description:"Faites 20 bonnes réponses au total", type: "good_answer", objectif: 20, recompense:"antenne"},
+    { id: 3, name: "Champion", description:"Gagner 5 parties", type: "nbr_win", objectif: 5, recompense: "mooncake" },
   ];
 let challenge = document.getElementById('defi_container');
+
+let obj_accesible = [];
 
 
 window.addEventListener("DOMContentLoaded", function () {
@@ -16,15 +18,33 @@ function printMissions() {
 
     missions.forEach((event) => {
         let storedValue = localStorage.getItem(event.type);
+        if (parseInt(storedValue) < event.objectif) {
             challenge.innerHTML += `
-                <div class="defi">
-                    <div>        
-                        <h2>${event.name}</h2>
-                        <p>${event.description}</p>
-                    </div>
-                    <p>${parseInt(storedValue)} / ${event.objectif}</p>
+            <div class="defi">
+                <div>        
+                    <h2>${event.name}</h2>
+                    <p>${event.description}</p>
                 </div>
-            `;
+                <p>${parseInt(storedValue)} / ${event.objectif}</p>
+                <p>Récompense: <p>
+            </div>
+        `;
+        }
+        else{
+            obj_accesible.push(event.recompense);
+            localStorage.setItem("obj_accessible", JSON.stringify(obj_accesible));
+            challenge.innerHTML += `
+            <div class="defi">
+                <div>        
+                    <h2>${event.name}</h2>
+                    <p>${event.description}</p>
+                </div>
+                <p>Vous avez accomplis l'objectif !</p>
+                
+            </div>
+        `;
+        }
+
         
     });
 }
