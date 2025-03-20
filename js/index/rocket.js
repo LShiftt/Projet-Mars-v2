@@ -18,49 +18,49 @@ function updateColor(obj, selectedElement) {
 export const createRocket = () => {
     rocketParts.topc = new THREE.Mesh(
         new THREE.CylinderGeometry(0, 6, 4, 64),
-        new THREE.MeshStandardMaterial({ color: scBody.value }) //Red
+        new THREE.MeshStandardMaterial({ color: localStorage.getItem("corps") }) //Red
     );
     scene.add(rocketParts.topc);
     rocketParts.topc.position.y = 60;
 
     rocketParts.topa = new THREE.Mesh(
         new THREE.CylinderGeometry(6, 12, 8, 64),
-        new THREE.MeshStandardMaterial({ color: scBody.value })
+        new THREE.MeshStandardMaterial({ color: localStorage.getItem("corps") })
     );
     scene.add(rocketParts.topa);
     rocketParts.topa.position.y = 54;
 
     rocketParts.topb = new THREE.Mesh(
         new THREE.CylinderGeometry(12, 18, 20, 64),
-        new THREE.MeshStandardMaterial({ color: scBody.value })
+        new THREE.MeshStandardMaterial({ color: localStorage.getItem("corps") })
     );
     scene.add(rocketParts.topb);
     rocketParts.topb.position.y = 40;
 
     rocketParts.mida = new THREE.Mesh(
         new THREE.CylinderGeometry(18, 20, 16, 64),
-        new THREE.MeshStandardMaterial({ color: scBody.value })
+        new THREE.MeshStandardMaterial({ color: localStorage.getItem("corps") })
     );
     scene.add(rocketParts.mida);
     rocketParts.mida.position.y = 22;
 
     rocketParts.midc = new THREE.Mesh(
         new THREE.CylinderGeometry(20, 20, 8, 64),
-        new THREE.MeshStandardMaterial({ color: scBody.value })
+        new THREE.MeshStandardMaterial({ color: localStorage.getItem("corps") })
     );
     scene.add(rocketParts.midc);
     rocketParts.midc.position.y = 10;
 
     rocketParts.midb = new THREE.Mesh(
         new THREE.CylinderGeometry(20, 18, 16, 64),
-        new THREE.MeshStandardMaterial({ color: scBody.value, receiveShadow: false })
+        new THREE.MeshStandardMaterial({ color: localStorage.getItem("corps"), receiveShadow: false })
     );
     scene.add(rocketParts.midb);
     rocketParts.midb.position.y = -2;
 
     rocketParts.bota = new THREE.Mesh(
         new THREE.CylinderGeometry(18, 14, 10, 64),
-        new THREE.MeshStandardMaterial({ color: scBody.value })
+        new THREE.MeshStandardMaterial({ color: localStorage.getItem("corps") })
     );
     scene.add(rocketParts.bota);
     rocketParts.bota.position.y = -15;
@@ -68,7 +68,7 @@ export const createRocket = () => {
     rocketParts.botb = new THREE.Mesh(
         new THREE.CylinderGeometry(14, 12, 6, 64),
         new THREE.MeshStandardMaterial({
-            color: scBody.value,
+            color: localStorage.getItem("corps"),
             roughness: 0.5,
             metalness: 1,
             side: THREE.DoubleSide
@@ -80,7 +80,7 @@ export const createRocket = () => {
     rocketParts.botc = new THREE.Mesh(
         new THREE.CylinderGeometry(10, 8, 4, 64),
         new THREE.MeshStandardMaterial({
-            color: scBody.value,
+            color: localStorage.getItem("corps"),
             roughness: 0,
             metalness: 1,
             side: THREE.DoubleSide
@@ -122,7 +122,7 @@ export const createRocket = () => {
     rocketParts.winb = new THREE.Mesh(
         new THREE.CylinderGeometry(9, 9, 8, 64),
         new THREE.MeshPhysicalMaterial({
-            color: scWindow.value,
+            color: localStorage.getItem("fenetre"),
             roughness: 1,
             transmission: 1,
             thickness: 0.9,
@@ -143,7 +143,7 @@ export const createRocket = () => {
     rocketParts.fina = new THREE.Mesh(
         new THREE.BoxGeometry(40, 8, 18),
         new THREE.MeshStandardMaterial({
-            color: scWing.value
+            color: localStorage.getItem("ailerons")
         })
     );
     scene.add(rocketParts.fina);
@@ -153,7 +153,7 @@ export const createRocket = () => {
     rocketParts.finb = new THREE.Mesh(
         new THREE.BoxGeometry(40, 8, 18),
         new THREE.MeshStandardMaterial({
-            color: scWing.value
+            color: localStorage.getItem("ailerons")
         })
     );
     scene.add(rocketParts.finb);
