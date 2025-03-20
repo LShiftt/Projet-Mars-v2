@@ -3,7 +3,8 @@
 * {
   box-sizing: border-box;
 }
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -86,4 +87,29 @@ button {
   cursor: not-allowed;
   opacity: 0.6;
   pointer-events: none;
+}
+
+#btnRetour {
+  position: absolute;
+  top: 20px;
+  right: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 50px;
+  text-decoration: none;
+  background-color: white;
+  color: black;
+  font-size: large;
+  font-family: "Pixelify Sans", sans-serif;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#btnRetour:hover {
+  background-color: white;
+  transform: scale(1.1);
 }
