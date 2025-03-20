@@ -87,7 +87,7 @@ fetch('/question.json')
           sound_correct.play();
           augmenterProgression();
         }
-  
+        
         // Vérifier si toutes les vies sont perdues
         if (document.querySelectorAll(".life").length === 0) {
           endGame("Vous avez perdu !");
@@ -102,17 +102,25 @@ fetch('/question.json')
           sound_win.play();
           return;
         }
+
+        if (progress.value < 10 && document.querySelectorAll(".life").length > 0) {
+          let skip_button = document.getElementById("next");
+          skip_button.innerHTML = `
+            <button onclick="nextQuestion()" id="next_btn">Suivante</button>
+          `;
+        }
   
-        // Attendre 5 secondes puis changer de question et cacher l’anecdote
-        setTimeout(() => {
-          anecdote.style.opacity = "0"; // Cacher l’anecdote
-          setTimeout(() => {
-            loadNewQuestion();
-          }, 2000);
-          
-        }, 6000);
+       
       });
     });
+  }
+
+  function nextQuestion() {
+     //changer de question et cacher l’anecdote
+    anecdote.style.opacity = "0"; // Cacher l’anecdote
+    document.getElementById("next_btn").remove();
+    loadNewQuestion();
+
   }
   
 

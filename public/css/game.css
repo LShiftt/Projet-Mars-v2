@@ -313,3 +313,13 @@ main>div:first-child{
   text-align: center;
   font-size:medium;
 }
+
+/* "Next" button */
+#next_btn{
+  width: 150px;
+  height: 50px;
+  font-size: large;
+  background-color: blue;
+  color: #ffffff;
+  border-radius: 15px;
+}
