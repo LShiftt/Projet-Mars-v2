@@ -107,7 +107,7 @@ section {
 .container_modif {
     position: absolute;
     display: flex;
-    left: 94.5%;
+    left: 93.5vw;
     top: 20vh;
     transition: 1s ease-in-out;
     z-index: 10;
