@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div>
+    <div class="container_starts">
         <div class="stars" id="stars"></div>
     </div>
 
@@ -87,7 +87,7 @@
                     if (btn.textContent === "Jouer") { // Utilisation de "btn" au lieu de "event"
                         window.location.href = "/html/terre.html";
                     }
-                    if (btn.textContent === "Éxploration") {
+                    if (btn.textContent === "Exploration") {
                         window.location.href = "/html/atterrissage.html";
                     }
                 }, 3000); // Redirection après 3 secondes
@@ -98,11 +98,11 @@
     <script>
         async function createStars() {
             const starContainer = document.getElementById('stars');
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 200; i++) {
                 let star = document.createElement('div');
                 star.classList.add('star');
-                star.style.left = Math.random() * 1500 + 'px';
-                star.style.top = Math.random() * 1000 + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
                 starContainer.appendChild(star);
             }
         }
@@ -144,6 +144,7 @@
             const volumeOffIcon = document.getElementById("volume-off");
 
             volumeOnIcon.style.display = "none";
+            audio.pause();
 
             volumeOnIcon.addEventListener("click", async function () {
                 audio.pause();

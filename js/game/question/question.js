@@ -22,6 +22,8 @@ fetch('/question.json')
   .catch(error => console.error('Erreur de chargement du fichier JSON:', error));
 
   function loadNewQuestion() {
+    let sound_start = new Audio('/sound/start.mp3');
+    sound_start.play();
     anecdoteText.innerHTML = "";
     anecdote.style.opacity = "0"; // Cacher l’anecdote en début de question
     anecdote.style.transition = "opacity 0.5s ease"; // Animation douce
@@ -106,9 +108,9 @@ fetch('/question.json')
           anecdote.style.opacity = "0"; // Cacher l’anecdote
           setTimeout(() => {
             loadNewQuestion();
-          }, 1000);
+          }, 2000);
           
-        }, 4000);
+        }, 6000);
       });
     });
   }
@@ -148,8 +150,6 @@ function endGame(message) {
 
 function restartGame() {
   gameOver = false;
-  let sound_start = new Audio('/sound/start.mp3');
-  sound_start.play();
   document.getElementById("setting").style.transform = "translateY(-100vh)";
   progress.value = 0;
   printScore.innerHTML = progress.value +"/10";

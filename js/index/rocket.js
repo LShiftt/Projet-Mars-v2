@@ -143,7 +143,7 @@ export const createRocket = () => {
     rocketParts.fina = new THREE.Mesh(
         new THREE.BoxGeometry(40, 8, 18),
         new THREE.MeshStandardMaterial({
-            color: scWing
+            color: scWing.value
         })
     );
     scene.add(rocketParts.fina);
@@ -153,7 +153,7 @@ export const createRocket = () => {
     rocketParts.finb = new THREE.Mesh(
         new THREE.BoxGeometry(40, 8, 18),
         new THREE.MeshStandardMaterial({
-            color: scWing
+            color: scWing.value
         })
     );
     scene.add(rocketParts.finb);
