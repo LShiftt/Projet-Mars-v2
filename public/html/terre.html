@@ -5,72 +5,134 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0,maximum-scale=1.0" />
     <link href="/public/css/terre.css" rel="stylesheet" />
+    <style>
+        #skip-text {
+            position: fixed;
+            bottom: 10px;
+            right: 15px;
+            font-size: 14px;
+            color: white;
+            font-family: Arial, sans-serif;
+            opacity: 1;
+            animation: blink 1s infinite alternate;
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.85; }
+            100% { opacity: 0.25; }
+        }
+
+        #transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            opacity: 0;
+            transition: opacity 2s;
+        }
+    </style>
  </head>
  <body>
     <audio controls loop autoplay style="display: none;" id="background-audio">
         <source src="/public/sound/game_music.mp3" type="audio/mpeg">
     </audio>
+    
     <div id="scene-container">
-    <!-- le canvas sera injecté ICI -->
-      <div id="narrateur">
-         <p></p>
-      </div>
+        <div id="narrateur">
+            <p></p>
+        </div>
     </div>
 
- <script type="module" src="/js/terre/terre.js"></script>
-   <script>
-   document.addEventListener("DOMContentLoaded", () => {
-    const phrases = [
-        "La Terre… notre maison. Mais nous l’avons abîmée. Elle ne pourra plus nous abriter éternellement.",
-        "Les ressources s’épuisent, le climat se dérègle… Si nous voulons survivre, nous devons trouver un nouveau refuge.",
-        "Mars… une terre hostile, froide, désertique… Mais c'est peut-être notre seul espoir.",
-        "Aucun humain n’a jamais voyagé aussi loin… C’est le plus grand défi de notre histoire."
-    ];
+    <!-- Texte clignotant pour skipper la cinématique -->
+    <div id="skip-text">Appuie sur "Échap" pour passer la cinématique</div>
 
-    let indexPhrase = 0;
-    let indexLettre = 0;
-    let isTyping = false;
-    const narrateur = document.querySelector("#narrateur p");
+    <script type="module" src="/js/terre/terre.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const phrases = [
+                "La Terre… notre maison. Mais nous l’avons abîmée. Elle ne pourra plus nous abriter éternellement.",
+                "Les ressources s’épuisent, le climat se dérègle… Si nous voulons survivre, nous devons trouver un nouveau refuge.",
+                "Mars… une terre hostile, froide, désertique… Mais c'est peut-être notre seul espoir.",
+                "Aucun humain n’a jamais voyagé aussi loin… C’est le plus grand défi de notre histoire.",
+                "Nous quittons notre berceau… vers l’inconnu, vers l’avenir, vers Mars."
+            ];
 
-    const sonClic = new Audio('/sound/clic.mp3');
+            let indexPhrase = 0;
+            let indexLettre = 0;
+            let isTyping = false;
+            const narrateur = document.querySelector("#narrateur p");
+            const sonClic = new Audio('/public/sound/clic.mp3');
 
-    function afficherPhrase() {
-        isTyping = true;
-        narrateur.textContent = "";
-        indexLettre = 0;
+            /** Afficher la phrase avec des lettres invisibles puis les rendre visibles une par une */
+            function afficherPhrase() {
+                isTyping = true;
+                narrateur.innerHTML = "";
 
-        const interval = setInterval(() => {
-            if (indexLettre < phrases[indexPhrase].length) {
-                narrateur.textContent += phrases[indexPhrase][indexLettre];
-                indexLettre++;
-            } else {
-                clearInterval(interval);
-                isTyping = false;
+                const phrase = phrases[indexPhrase];
+                for (let lettre of phrase) {
+                    const span = document.createElement("span");
+                    span.textContent = lettre;
+                    span.style.visibility = "hidden";
+                    narrateur.appendChild(span);
+                }
+
+                const spans = narrateur.querySelectorAll("span");
+                indexLettre = 0;
+
+                const interval = setInterval(() => {
+                    if (indexLettre < spans.length) {
+                        spans[indexLettre].style.visibility = "visible";
+                        indexLettre++;
+                    } else {
+                        clearInterval(interval);
+                        isTyping = false;
+                    }
+                }, 50);
             }
-        }, 50);
-    }
 
-    document.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" && !isTyping) {
-            sonClic.play();
-            if (indexPhrase < phrases.length - 1) {
-                indexPhrase++;
-                afficherPhrase();
-            } else {
-                // Ajout du fondu au noir avant la redirection
+            /** Fonction pour passer à la phrase suivante */
+            function passerPhrase() {
+                if (!isTyping) {
+                    sonClic.play();
+                    if (indexPhrase < phrases.length - 1) {
+                        indexPhrase++;
+                        afficherPhrase();
+                    } else {
+                        transitionVersGame();
+                    }
+                }
+            }
+
+            /** Fonction pour sauter directement à la page suivante */
+            function transitionVersGame() {
                 const overlay = document.getElementById("transition-overlay");
-                overlay.style.opacity = "1"; // Déclenche le fondu
+                overlay.style.opacity = "1";
                 setTimeout(() => {
-                    window.location.href = "/html/game.html"; 
-                }, 3000); // Redirection après 3 secondes
+                    window.location.href = "/html/game.html";
+                }, 2000);
             }
-        }
-    });
 
-    afficherPhrase();
-});
+            // Écoute de la touche "Entrée"
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    passerPhrase();
+                } else if (event.key === "Escape") {
+                    transitionVersGame(); // Passer la cinématique directement
+                }
+            });
 
-</script>
-   
-<div id="transition-overlay"></div>
- </body>
+            // Écoute du clic de souris
+            document.addEventListener("click", () => {
+                passerPhrase();
+            });
+
+            // Lancer la première phrase
+            afficherPhrase();
+        });
+    </script>
+
+    <div id="transition-overlay"></div>
+</body>
+</html>
