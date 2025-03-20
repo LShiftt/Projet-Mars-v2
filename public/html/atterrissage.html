@@ -26,16 +26,13 @@
 
   <audio id="bandeSon" src="/sound/game_music.mp3" loop muted style="display: none"></audio>
 
-  <!-- Contrôle de volume -->
   <div id="volume-controls" style="position: absolute; top: 20px; right: 20px; z-index: 3;">
     <i class="fa-solid fa-volume-high" id="volume-on"></i>
     <i class="fa-solid fa-volume-xmark" id="volume-off"></i>
   </div>
   
-  <!-- Bouton retour -->
   <button id="btnRetour">Retour</button>
 
-  <!-- Overlay de transition -->
   <div id="transition-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: black; opacity: 0; pointer-events: none; transition: opacity 3s;"></div>
 
   <script type="importmap">
@@ -51,7 +48,6 @@
     const volumeOnIcon = document.getElementById("volume-on");
     const volumeOffIcon = document.getElementById("volume-off");
 
-    // Afficher volume off par défaut, puisque le son est en autoplay muet
     volumeOnIcon.style.display = "none";
 
     volumeOnIcon.addEventListener("click", async function () {
@@ -61,13 +57,12 @@
     });
 
     volumeOffIcon.addEventListener("click", async function () {
-      audio.muted = false;  // Désactiver le mode muet
+      audio.muted = false;  
       audio.play();
       volumeOnIcon.style.display = "inline";
       volumeOffIcon.style.display = "none";
     });
 
-    // Gestion du bouton de retour avec fondu au noir
     document.getElementById("btnRetour").addEventListener("click", function () {
       const overlay = document.getElementById("transition-overlay");
       overlay.style.opacity = "1";
