@@ -42,7 +42,7 @@ function printMissions() {
                     <h2>${event.name}</h2>
                     <p>${event.description}</p>
                 </div>
-                <p>Vous avez accomplis l'objectif !</p>
+                <p>Vous avez accompli l'objectif !</p>
                 
             </div>
         `;
