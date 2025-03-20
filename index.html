@@ -110,7 +110,7 @@
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            if (!localStorage.getItem("nbr_win")) {
+            if (!localStorage.getItem("nbr_win" || !localStorage.getItem("good_answer"))) {
                 localStorage.setItem("nbr_win", 0);
                 localStorage.setItem("good_answer", 0);
             }
