@@ -71,8 +71,8 @@ header>h1 {
 }
 
 header>i {
-    
     font-size: xx-large;
+    cursor: pointer;
 }
 
 .btn_container {
@@ -93,6 +93,7 @@ header>i {
     font-size: x-large;
     font-family: "Pixelify Sans", sans-serif;
     border-radius: 20px;
+    cursor: pointer;
 }
 
 section {
@@ -173,6 +174,7 @@ section {
 }
 .zone label>input{
     width: 50%;
+    cursor: pointer;
 }
 
 

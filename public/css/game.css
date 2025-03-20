@@ -201,6 +201,7 @@ main>div:first-child{
   border: 3px solid white;
   border-radius: 15px;
   font-size: large;
+  cursor: pointer;
 }
 
 
@@ -262,6 +263,8 @@ main>div:first-child{
 
 .musique_setting i{
   font-size: larger;
+  cursor: pointer;
+  color: black;
 }
 
 
