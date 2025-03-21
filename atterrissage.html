@@ -6,8 +6,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
   <script src="https://kit.fontawesome.com/1ce9ab38cd.js" crossorigin="anonymous"></script>
-  <link type="text/css" rel="stylesheet" href="/css/atterissage.css" />
-
 </head>
 
 <body>
@@ -30,10 +28,12 @@
     <i class="fa-solid fa-volume-high" id="volume-on"></i>
     <i class="fa-solid fa-volume-xmark" id="volume-off"></i>
   </div>
-  
+
   <button id="btnRetour">Retour</button>
 
-  <div id="transition-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: black; opacity: 0; pointer-events: none; transition: opacity 3s;"></div>
+  <div id="transition-overlay"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: black; opacity: 0; pointer-events: none; transition: opacity 3s;">
+  </div>
 
   <script type="importmap">
       {
@@ -57,7 +57,7 @@
     });
 
     volumeOffIcon.addEventListener("click", async function () {
-      audio.muted = false;  
+      audio.muted = false;
       audio.play();
       volumeOnIcon.style.display = "inline";
       volumeOffIcon.style.display = "none";
@@ -72,7 +72,10 @@
       }, 3000);
     });
   </script>
-  <script type="module" src="/js/atterissage/index.js"></script>
+  <script type="module">
+    import '@/css/atterissage.css';
+    import '@/js/atterissage/index.js';
+  </script>
 </body>
 
 </html>

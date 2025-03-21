@@ -78,8 +78,8 @@ function Terre() {
     const geometry = new THREE.SphereGeometry(10, 64, 32);
     const textureLoader = new THREE.TextureLoader();
 
-    const dayTexture = textureLoader.load("../../public/img/textures/2k_earth_daymap.jpg");
-    const nightTexture = textureLoader.load("../../public/img/textures/2k_earth_nightmap.jpg");
+    const dayTexture = textureLoader.load("/img/textures/2k_earth_daymap.jpg");
+    const nightTexture = textureLoader.load("/img/textures/2k_earth_nightmap.jpg");
 
     shaderMaterial = new THREE.ShaderMaterial({
         uniforms: {

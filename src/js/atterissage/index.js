@@ -1,7 +1,8 @@
 import { createPixelEffect } from "./postprocess-pixel.js";
 import * as THREE from "three";
-import { createRocket, rocket } from "../../public/model/fusee/rocket";
+import { createRocket, rocket } from '@/model/fusee/rocket.js';
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { modelPaths } from "./modelPaths.js";
 
 const textureLoader = new THREE.TextureLoader();
 const clock = new THREE.Clock();
@@ -11,7 +12,7 @@ const inventoryItems = [
     id: "inventoryCubeJaune",
     name: "Microscope",
     localStorageKey: "microscope",
-    modelPath: "../../public/model/microscope/scene.gltf",
+    modelPath: modelPaths.microscope,
     offset: new THREE.Vector3(0, 0, 0),
     scale: new THREE.Vector3(0.01, 0.01, 0.01),
     obtained: false,
@@ -21,7 +22,7 @@ const inventoryItems = [
     id: "inventoryCubeVert",
     name: "Antenne",
     localStorageKey: "antenne",
-    modelPath: "../../public/model/antena/scene.gltf",
+    modelPath: modelPaths.antenne,
     scale: new THREE.Vector3(0.04, 0.04, 0.04),
     obtained: false,
     placed: false,
@@ -30,7 +31,7 @@ const inventoryItems = [
     id: "inventoryCubeBleu",
     name: "Moon Cake",
     localStorageKey: "mooncake",
-    modelPath: "../../public/model/final_space_-_mooncake/scene.gltf",
+    modelPath: modelPaths.mooncake,
     scale: new THREE.Vector3(0.35, 0.35, 0.35),
     offset: new THREE.Vector3(0, 0.65, 0),
     obtained: false,
@@ -40,7 +41,7 @@ const inventoryItems = [
     id: "inventoryCubeRose",
     name: "Sci-Fi Boite",
     localStorageKey: "boite",
-    modelPath: "../../public/model/science_fiction_box/scene.gltf",
+    modelPath: modelPaths.boite,
     offset: new THREE.Vector3(0, 0.2, 0),
     obtained: false,
     placed: false,
@@ -49,8 +50,7 @@ const inventoryItems = [
     id: "inventoryCubeGris",
     name: "Perseverance",
     localStorageKey: "perseverance",
-    modelPath:
-      "../../public/model/perseverance_-_nasa_mars_landing_2021/scene.gltf",
+    modelPath: modelPaths.perseverance,
     scale: new THREE.Vector3(0.15, 0.15, 0.15),
     obtained: false,
     placed: false,
@@ -115,9 +115,7 @@ function ajouterEtoiles() {
 ajouterEtoiles();
 
 // Création des objets principaux
-const planetTexture = textureLoader.load(
-  "../../../public/img/textures/2k_mars.jpg"
-);
+const planetTexture = textureLoader.load("/img/textures/2k_mars.jpg");
 
 const cameraMain = new THREE.PerspectiveCamera(
   75,
@@ -171,8 +169,9 @@ function setAnimation(name) {
 
 // Chargement du modèle de l'astronaute
 const gltfLoader = new GLTFLoader();
+// Chargement du modèle de l'astronaute depuis public
 gltfLoader.load(
-  "../../public/model/astronauta/scene.gltf",
+  "/model/astronauta/scene.gltf", // ✅ Correction ici
   (gltf) => {
     const model = gltf.scene;
     model.scale.set(0.2, 0.2, 0.2);
@@ -181,47 +180,37 @@ gltfLoader.load(
     model.position.add(offset);
     const group = new THREE.Group();
     group.add(model);
-    // Position initiale de l'astronaute (sera modifiée après l'atterrissage)
+
+    // Position initiale surélevée, avant l'atterrissage
     group.position.set(0.2, 2.1, 0);
     player = group;
-    // L'astronaute reste invisible pendant la descente de la fusée
     player.visible = false;
     scene.add(player);
+
+    // Setup des animations
     mixer = new THREE.AnimationMixer(group);
-    const idleClip = gltf.animations.find((clip) =>
-      clip.name.toLowerCase().includes("idle")
-    );
-    const walkClip = gltf.animations.find((clip) =>
-      clip.name.toLowerCase().includes("walk")
-    );
-    const runClip = gltf.animations.find((clip) =>
-      clip.name.toLowerCase().includes("run")
-    );
-    const placeClip = gltf.animations.find((clip) =>
-      clip.name.toLowerCase().includes("coletandochao")
-    );
-    if (idleClip) {
-      idleAction = mixer.clipAction(idleClip);
+    const getClip = (key) =>
+      gltf.animations.find((clip) => clip.name.toLowerCase().includes(key));
+
+    idleAction = mixer.clipAction(getClip("idle"));
+    walkAction = mixer.clipAction(getClip("walk"));
+    runAction = mixer.clipAction(getClip("run"));
+    placeAction = mixer.clipAction(getClip("coletandochao"));
+
+    if (idleAction) {
       idleAction.loop = THREE.LoopRepeat;
       idleAction.play();
     }
-    if (walkClip) {
-      walkAction = mixer.clipAction(walkClip);
-      walkAction.loop = THREE.LoopRepeat;
-    }
-    if (runClip) {
-      runAction = mixer.clipAction(runClip);
-      runAction.loop = THREE.LoopRepeat;
-    }
-    if (placeClip) {
-      placeAction = mixer.clipAction(placeClip);
+    if (walkAction) walkAction.loop = THREE.LoopRepeat;
+    if (runAction) runAction.loop = THREE.LoopRepeat;
+    if (placeAction) {
       placeAction.loop = THREE.LoopOnce;
       placeAction.clampWhenFinished = true;
     }
   },
   undefined,
   (error) => {
-    console.error("Erreur de chargement du modèle GLTF", error);
+    console.error("Erreur de chargement du modèle de l'astronaute :", error);
   }
 );
 

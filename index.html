@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/1ce9ab38cd.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/index.css">
     <title>Projet Mars</title>
 </head>
 
@@ -74,6 +73,11 @@
         </section>
     </main>
     <div id="transition-overlay"></div>
+    <script type="module">
+        import '@/css/index.css';
+        import '@/js/index/main.js';
+        import '@/js/game/question/challenge.js';
+        </script>
     <script>
         const btns = document.querySelectorAll('.btn');
 
@@ -85,10 +89,10 @@
 
                 setTimeout(() => {
                     if (btn.textContent === "Jouer") { // Utilisation de "btn" au lieu de "event"
-                        window.location.href = "/html/terre.html";
+                        window.location.href = "terre.html";
                     }
                     if (btn.textContent === "Exploration") {
-                        window.location.href = "/html/atterrissage.html";
+                        window.location.href = "atterrissage.html";
                     }
                 }, 3000); // Redirection après 3 secondes
             });
@@ -171,8 +175,6 @@
 
         });
     </script>
-    <script type="module" src="./js/index/main.js"></script>
-    <script src="./js/game/question/challenge.js"></script>
 </body>
 
 </html>
